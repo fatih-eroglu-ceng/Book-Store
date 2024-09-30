@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import useFetch from '../../hooks/useFetch';
 import useCoverImage from '../../hooks/useCoverImage';
 import { handleBackClick } from '../../utils/navigation';
-import { handleAddToCart } from '../../utils/addCart';
-import { handleFavoriteClick } from '../../utils/favorites';
+import { addFavorite, removeFavorite } from '../../redux/favoritesSlice';
+import { addItemToCart } from '../../redux/cartSlice';
 import { Product } from '../../types/product';
 import { RootState } from '../../redux/store';
 
@@ -15,7 +15,6 @@ const BookDetailsPage = ({ params }: { params: { id: string } }) => {
   const router = useRouter();
 
   const favoriteBooks = useSelector((state: RootState) => state.favorites.favorites);
-
   const isBookFavorite = favoriteBooks.some(favorite => favorite.id === parseInt(id));
 
   const { data: productData, error: productError, isLoading } = useFetch<{ product_by_pk: Product }>(
@@ -31,6 +30,24 @@ const BookDetailsPage = ({ params }: { params: { id: string } }) => {
 
   const book = productData?.product_by_pk;
 
+  const handleFavoriteClick = () => {
+    if (isBookFavorite) {
+      dispatch(removeFavorite(book!.id)); 
+    } else {
+      dispatch(addFavorite(book!)); 
+    }
+  };
+
+  const handleAddToCartClick = () => {
+    if (book) {
+      const cartItem = {
+        ...book,
+        quantity: 1, 
+      };
+      dispatch(addItemToCart(cartItem)); 
+    }
+  };
+
   return (
     <div className="py-10 px-6 max-w-7xl mx-auto">
       <div className="mb-6 flex justify-between items-center">
@@ -41,7 +58,7 @@ const BookDetailsPage = ({ params }: { params: { id: string } }) => {
           &lt; Book Details
         </h1>
 
-        <button onClick={() => handleFavoriteClick(dispatch, book!, isBookFavorite)}>
+        <button onClick={handleFavoriteClick}>
           <img
             src={isBookFavorite ? '/images/filled.png' : '/images/empty.png'}
             alt="Favorite"
@@ -76,7 +93,7 @@ const BookDetailsPage = ({ params }: { params: { id: string } }) => {
 
           <div className="absolute bottom-0 right-0">
             <button
-              onClick={() => handleAddToCart(dispatch, book)}
+              onClick={handleAddToCartClick}
               className="bg-[#EF6B4A] text-white flex justify-between items-center px-6 py-3 rounded-md w-full max-w-xs"
             >
               <span className="text-lg font-bold">{book?.price.toFixed(2)} $</span>
