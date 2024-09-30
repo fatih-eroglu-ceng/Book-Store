@@ -6,7 +6,7 @@ import Link from 'next/link';
 import useCoverImage from '../hooks/useCoverImage';
 
 const FavoritesDropdown = () => {
-    const favoriteBooks = useSelector((state: RootState) => state.cart.favorites);
+    const favoriteBooks = useSelector((state: RootState) => state.favorites.favorites);
 
     return (
         <div className="absolute right-0 mt-2 w-64 bg-white border border-gray-300 rounded-lg shadow-lg z-50">

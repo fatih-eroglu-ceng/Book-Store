@@ -14,7 +14,7 @@ const Header = () => {
   );
 
   const favoriteItemCount = useSelector((state: RootState) =>
-    state.cart.favorites.length
+    state.favorites.favorites.length
   );
 
   const toggleDropdown = () => {

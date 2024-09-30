@@ -14,7 +14,7 @@ const BookDetailsPage = ({ params }: { params: { id: string } }) => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const favoriteBooks = useSelector((state: RootState) => state.cart.favorites);
+  const favoriteBooks = useSelector((state: RootState) => state.favorites.favorites);
 
   const isBookFavorite = favoriteBooks.some(favorite => favorite.id === parseInt(id));
 

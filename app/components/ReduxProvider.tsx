@@ -1,8 +1,27 @@
 'use client';
 
+import React from 'react';
 import { Provider } from 'react-redux';
-import { store } from '../redux/store';
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from '../redux/store';
+import { useEffect, useState } from 'react';
 
 export default function ReduxProvider({ children }: { children: React.ReactNode }) {
-  return <Provider store={store}>{children}</Provider>;
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null;
+  }
+
+  return (
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        {children}
+      </PersistGate>
+    </Provider>
+  );
 }
