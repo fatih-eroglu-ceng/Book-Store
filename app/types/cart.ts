@@ -1,9 +1,5 @@
-export interface CartItem {
-  id: number;
-  name: string;
-  price: number;
-  quantity: number;
-  cover: string;
-  author: string;
-  description: string;
+import { Product } from './product'
+
+export type CartItem = Product & {
+  quantity: number
 }

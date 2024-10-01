@@ -1,8 +1,10 @@
-export const handleBackClick = (router: any) => {
-  const previousPage = localStorage.getItem('previousPage');
+import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime'
+
+export const handleBackClick = (router: AppRouterInstance) => {
+  const previousPage = localStorage.getItem('previousPage')
   if (previousPage) {
-    router.push(previousPage);
+    router.push(previousPage)
   } else {
-    router.back();
+    router.back()
   }
-};
+}
