@@ -27,7 +27,7 @@ const cartSlice = createSlice({
       } else {
         state.items.push({ ...action.payload, quantity: 1 });
       }
-      state.totalAmount = calculateTotalAmount(state.items); // Total amount'ı her değişiklikte yeniden hesapla
+      state.totalAmount = calculateTotalAmount(state.items);
     },
     removeItemFromCart: (state, action: PayloadAction<number>) => {
       const existingItem = state.items.find(item => item.id === action.payload);
@@ -38,7 +38,7 @@ const cartSlice = createSlice({
           state.items = state.items.filter(item => item.id !== action.payload);
         }
       }
-      state.totalAmount = calculateTotalAmount(state.items); // Güncel total amount
+      state.totalAmount = calculateTotalAmount(state.items);
     },
   },
 });
