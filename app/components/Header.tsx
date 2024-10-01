@@ -6,6 +6,10 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import FavoritesDropdown from './FavoritesDropdown';
 
+enum Direction {
+  cartItem = 1,
+}
+
 const Header = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
@@ -27,7 +31,7 @@ const Header = () => {
         <div className="flex justify-between items-center">
           {/* Logo */}
           <Link href="/">
-            <Image src="/images/Logo.png" alt="Logo" width={60} height={39} className="md:w-36 md:h-auto lg:w-14" />
+            <Image src="/images/Logo.png" alt="Logo" width={60} height={39} className="md:w-36 md:h-auto lg:w-14 hover:border" />
           </Link>
 
           {/* Search Bar */}
@@ -41,16 +45,16 @@ const Header = () => {
           <div className="flex space-x-2 md:space-x-4 relative items-center">
             {/* Profile */}
             <button>
-              <Image src="/images/Profile.png" alt="Profile" width={65} height={65} className="mb-1 md:mb-0 w-10 h-10 md:w-36 md:h-auto lg:w-14" />
+              <Image src="/images/Profile.png" alt="Profile" width={65} height={65} className="mb-1 md:mb-0 w-10 h-10 md:w-36 md:h-auto lg:w-14 hover:border" />
             </button>
 
             {/* Heart (Favorites) */}
             <div className="relative">
               <button onClick={toggleDropdown}>
-                <Image src="/images/Heart.png" alt="Heart" width={65} height={65} className="mt-1 w-10 h-10 md:w-36 md:h-auto lg:w-14" />
+                <Image src="/images/Heart.png" alt="Heart" width={65} height={65} className="mt-1 w-10 h-10 md:w-36 md:h-auto lg:w-14 hover:border" />
               </button>
               {favoriteItemCount > 0 && (
-                <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full px-1 md:px-2 py-0.5 text-xs">
+                <span className="absolute mt-1 -top-2 -right-2 bg-red-500 text-white rounded-full px-1 md:px-2 py-0.5 text-xs">
                   {favoriteItemCount}
                 </span>
               )}
@@ -60,7 +64,7 @@ const Header = () => {
 
             {/* Cart */}
             <Link href="/cart" className="relative">
-              <Image src="/images/Cart.png" alt="Cart" width={65} height={65} className="w-10 h-10 md:w-36 md:h-auto lg:w-14" />
+              <Image src="/images/Cart.png" alt="Cart" width={65} height={65} className="w-10 h-10 md:w-36 md:h-auto lg:w-14 hover:border" />
               {cartItemCount > 0 && (
                 <span className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full px-1 md:px-2 py-0.5 text-xs">
                   {cartItemCount}

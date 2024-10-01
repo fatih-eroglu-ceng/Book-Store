@@ -62,7 +62,7 @@ const BookDetailsPage = ({ params }: { params: { id: string } }) => {
           <img
             src={isBookFavorite ? '/images/filled.png' : '/images/empty.png'}
             alt="Favorite"
-            className="w-8 h-8"
+            className="w-8 h-8 hover:bg-gray-200"
           />
         </button>
       </div>
@@ -94,7 +94,7 @@ const BookDetailsPage = ({ params }: { params: { id: string } }) => {
           <div className="absolute bottom-0 right-0">
             <button
               onClick={handleAddToCartClick}
-              className="bg-[#EF6B4A] text-white flex justify-between items-center px-6 py-3 rounded-md w-full max-w-xs"
+              className="bg-[#EF6B4A] text-white flex justify-between items-center px-6 py-3 rounded-md w-full max-w-xs hover:bg-red-500"
             >
               <span className="text-lg font-bold">{book?.price.toFixed(2)} $</span>
               <span className="ml-4 font-semibold">Buy Now</span>

@@ -37,7 +37,7 @@ const CategoryPage = ({ params }: { params: { id: number } }) => {
             <Link
               href={{ pathname: `/book/${product.id}`, query: { name: product.name } }}
               key={product.id}
-              className="bg-myGray p-4 rounded-lg border border-gray-300 flex flex-col"
+              className="bg-myGray p-4 rounded-lg border border-gray-300 flex flex-col hover:bg-gray-200"
             >
               <img
                 src={`/images/cover.png`}

@@ -40,7 +40,7 @@ const CartItemComponent = ({ item, handleAddItem, handleRemoveItem }: CartItemPr
         <div className="flex items-center gap-4">
           <button
             onClick={() => handleRemoveItem(item.id)}
-            className="w-10 h-10 bg-red-500 text-white rounded-full"
+            className="w-10 h-10 bg-red-500 text-white rounded-full hover:bg-red-600"
           >
             -
           </button>
@@ -49,7 +49,7 @@ const CartItemComponent = ({ item, handleAddItem, handleRemoveItem }: CartItemPr
 
           <button
             onClick={() => handleAddItem(item.id)}
-            className="w-10 h-10 bg-green-500 text-white rounded-full"
+            className="w-10 h-10 bg-green-500 text-white rounded-full hover:bg-green-600"
           >
             +
           </button>
