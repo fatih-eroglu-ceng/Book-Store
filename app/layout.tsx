@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from './components/Header';
-import ReduxProvider from './components/ReduxProvider';
+import Providers from './components/Providers';
 
 export const metadata: Metadata = {
   title: "Book Store",
@@ -15,12 +15,10 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <title>Book Store</title>
       </head>
       <body>
-        <ReduxProvider>
+        <Providers>
           <Header />
-          <main>
-            {children}
-          </main>
-        </ReduxProvider>
+          <main>{children}</main>
+        </Providers>
       </body>
     </html>
   );

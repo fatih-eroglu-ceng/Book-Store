@@ -5,10 +5,7 @@ import Image from 'next/image';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/store';
 import FavoritesDropdown from './FavoritesDropdown';
-
-enum Direction {
-  cartItem = 1,
-}
+import { signOut } from 'next-auth/react';
 
 const Header = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -44,7 +41,7 @@ const Header = () => {
           {/* Profile, Heart, Cart */}
           <div className="flex space-x-2 md:space-x-4 relative items-center">
             {/* Profile */}
-            <button>
+            <button onClick={() => signOut()}>
               <Image src="/images/Profile.png" alt="Profile" width={65} height={65} className="mb-1 md:mb-0 w-10 h-10 md:w-36 md:h-auto lg:w-14 hover:border" />
             </button>
 
