@@ -1,11 +1,11 @@
-'use client';
-import React, { useState } from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
-import { useSelector } from 'react-redux';
-import { RootState } from '../redux/store';
-import FavoritesDropdown from './FavoritesDropdown';
-import { signOut } from 'next-auth/react';
+'use client'
+import React, { useState } from 'react'
+import Link from 'next/link'
+import Image from 'next/image'
+import { useSelector } from 'react-redux'
+import { RootState } from '../redux/store'
+import FavoritesDropdown from './FavoritesDropdown'
+import { signOut } from 'next-auth/react'
 
 const Header = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false)
@@ -76,7 +76,7 @@ const Header = () => {
             </div>
 
             {/* Cart */}
-            <Link href='/cart' className='relative'>
+            <Link href='/shoppingCart' className='relative'>
               <Image
                 src='/images/Cart.png'
                 alt='Cart'

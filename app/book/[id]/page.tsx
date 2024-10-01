@@ -55,7 +55,7 @@ const BookDetailsPage = ({ params }: { params: { id: string } }) => {
   return (
     <div className='py-10 px-6 max-w-7xl mx-auto'>
       <div className='mb-6 flex justify-between items-center'>
-        <h1 onClick={() => handleBackClick(router)} className='text-2xl font-bold cursor-pointer hover:underline mb-6'>
+        <h1 onClick={() => handleBackClick(router)} className='text-2xl font-bold cursor-pointer hover:underline'>
           &lt; Book Details
         </h1>
 
