@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { useSelector } from 'react-redux'
@@ -9,6 +9,7 @@ import { signOut } from 'next-auth/react'
 
 const Header = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false)
+  const dropdownRef = useRef<HTMLDivElement>(null)
 
   const cartItemCount = useSelector((state: RootState) =>
     state.cart.items.reduce((total, item) => total + item.quantity, 0)
@@ -19,6 +20,20 @@ const Header = () => {
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen)
   }
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setDropdownOpen(false)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [])
 
   return (
     <>
@@ -45,7 +60,7 @@ const Header = () => {
           {/* Profile, Heart, Cart */}
           <div className='flex space-x-2 md:space-x-4 relative items-center'>
             {/* Profile */}
-            <button>
+            <button onClick={() => signOut()}>
               <Image
                 src='/images/Profile.png'
                 alt='Profile'
@@ -56,7 +71,7 @@ const Header = () => {
             </button>
 
             {/* Heart (Favorites) */}
-            <div className='relative'>
+            <div className='relative' ref={dropdownRef}>
               <button onClick={toggleDropdown}>
                 <Image
                   src='/images/Heart.png'

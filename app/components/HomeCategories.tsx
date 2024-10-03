@@ -36,7 +36,7 @@ const CategorySection = ({ category }: { category: Category }) => {
       <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4'>
         {productsData?.product.slice(0, 4).map((product: Product) => (
           <Link
-            href={{ pathname: `/book/${product.id}`, query: { name: product.name } }}
+            href={{ pathname: `/book/${product.id}`, query: { cover: product.cover } }}
             key={product.id}
             className='bg-myGray p-4 rounded-lg border border-gray-300 flex hover:bg-gray-200'
           >

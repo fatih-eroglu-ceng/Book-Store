@@ -21,3 +21,4 @@ export default function Home() {
     </div>
   );
 }
+//TODO: Src klasörü koy /app te sadece page olanlar (routing) gerisi /src içinde olabilir

@@ -1,20 +1,26 @@
-'use client';
+'use client'
 
-import React, { useEffect, useState } from 'react';
-import { Provider as ReduxProvider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
-import { store, persistor } from '../redux/store';
-import { SessionProvider } from 'next-auth/react';
+import React, { useEffect, useState } from 'react'
+import { Provider as ReduxProvider } from 'react-redux'
+import { PersistGate } from 'redux-persist/integration/react'
+import { SessionProvider } from 'next-auth/react'
+import { createStore } from '../redux/store'
 
 export default function Providers({ children }: { children: React.ReactNode }) {
-  const [isMounted, setIsMounted] = useState(false);
+  const [store, setStore] = useState<any>(null)
+  const [persistor, setPersistor] = useState<any>(null)
 
   useEffect(() => {
-    setIsMounted(true);
-  }, []);
+    const setupStore = async () => {
+      const { store: newStore, persistor: newPersistor } = await createStore()
+      setStore(newStore)
+      setPersistor(newPersistor)
+    }
+    setupStore()
+  }, [])
 
-  if (!isMounted) {
-    return null;
+  if (!store || !persistor) {
+    return null
   }
 
   return (
@@ -25,5 +31,5 @@ export default function Providers({ children }: { children: React.ReactNode }) {
         </PersistGate>
       </ReduxProvider>
     </SessionProvider>
-  );
+  )
 }

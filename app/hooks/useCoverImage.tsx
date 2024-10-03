@@ -1,44 +1,36 @@
-import { useState, useEffect } from 'react'
+import useSWR from 'swr'
 
-const GetCoverImage = (coverFileName: string | null) => {
-  const [coverImageUrl, setCoverImageUrl] = useState<string | null>(null)
-  const [error, setError] = useState<string | null>(null)
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+const fetcher = async (url: string, fileName: string) => {
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ fileName })
+  })
 
-  useEffect(() => {
-    if (coverFileName) {
-      const fetchCoverImage = async () => {
-        setIsLoading(true)
-        try {
-          const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/cover_image/`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ fileName: coverFileName })
-          })
-          const coverData = await response.json()
+  if (!response.ok) {
+    throw new Error('Failed to fetch cover image')
+  }
 
-          if (!coverData) {
-            throw new Error('Failed to load cover image')
-          }
-          const coverUrl = coverData.action_product_image?.url
-          if (coverUrl) {
-            setCoverImageUrl(coverUrl)
-          } else {
-            setError('Cover image not found')
-          }
-        } catch (error) {
-          setError((error as Error).message)
-        } finally {
-          setIsLoading(false)
-        }
-      }
-      fetchCoverImage()
-    }
-  }, [coverFileName])
+  const coverData = await response.json()
+  return coverData.action_product_image?.url || null
+}
 
-  return { coverImageUrl, error, isLoading }
+const GetCoverImage = (fileName: string | null) => {
+  const {
+    data: coverImageUrl,
+    error,
+    isValidating: isLoading
+  } = useSWR(fileName ? [`${process.env.NEXT_PUBLIC_API_BASE_URL}/cover_image`, fileName] : null, ([url, fileName]) =>
+    fetcher(url, fileName)
+  )
+
+  return {
+    coverImageUrl,
+    error,
+    isLoading
+  }
 }
 
 export default GetCoverImage

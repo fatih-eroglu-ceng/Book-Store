@@ -8,14 +8,17 @@ import { addFavorite, removeFavorite } from '../../redux/favoritesSlice'
 import { addItemToCart } from '../../redux/cartSlice'
 import { Product } from '../../types/product'
 import { RootState } from '../../redux/store'
-
+import { useSearchParams } from 'next/navigation';
+//TODO: Params kontrol et
 const BookDetailsPage = ({ params }: { params: { id: string } }) => {
   const { id } = params
   const dispatch = useDispatch()
   const router = useRouter()
-
   const favoriteBooks = useSelector((state: RootState) => state.favorites.favorites)
   const isBookFavorite = favoriteBooks.some(favorite => favorite.id === +id)
+  const searchParams = useSearchParams();
+
+  const coverName = searchParams.get('cover')
 
   const {
     data: productData,
@@ -27,7 +30,9 @@ const BookDetailsPage = ({ params }: { params: { id: string } }) => {
     coverImageUrl,
     error: coverError,
     isLoading: isCoverLoading
-  } = useCoverImage(productData?.product_by_pk.cover ?? null)
+  } = useCoverImage(coverName)
+
+  console.log(productData?.product_by_pk.cover)
 
   if (isLoading) return <div>Loading book details...</div>
   if (productError) return <div>Error loading book details</div>

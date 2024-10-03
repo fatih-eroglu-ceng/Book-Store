@@ -7,6 +7,8 @@ import GetCoverImage from '../hooks/useCoverImage'
 
 const FavoritesDropdown = () => {
   const favoriteBooks = useSelector((state: RootState) => state.favorites.favorites)
+  
+
 
   return (
     <div className='absolute right-0 mt-2 w-64 bg-white border border-gray-300 rounded-lg shadow-lg z-50'>
@@ -16,7 +18,7 @@ const FavoritesDropdown = () => {
             const { coverImageUrl, error, isLoading } = GetCoverImage(book.cover)
             return (
               <li key={book.id} className='mb-2 last:mb-0'>
-                <Link href={`/book/${book.id}`} className='flex items-center space-x-4'>
+                <Link href={{ pathname: `/book/${book.id}`, query: { cover: book.cover } }} className='flex items-center space-x-4'>
                   {isLoading ? (
                     <div className='w-12 h-12 bg-gray-200 rounded'></div>
                   ) : error ? (

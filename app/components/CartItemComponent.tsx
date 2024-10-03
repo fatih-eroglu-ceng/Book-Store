@@ -46,7 +46,7 @@ const CartItemComponent = ({ item }: CartItemProps) => {
         <div className='flex items-center gap-4'>
           <button
             onClick={handleRemoveItem}
-            className='w-10 h-10 bg-red-500 text-white rounded-full hover:bg-red-600'
+            className='w-6 h-6 md:w-10 md:h-10 bg-red-500 text-white rounded-full hover:bg-red-600'
           >
             -
           </button>
@@ -55,7 +55,7 @@ const CartItemComponent = ({ item }: CartItemProps) => {
 
           <button
             onClick={handleAddItem}
-            className='w-10 h-10 bg-green-500 text-white rounded-full hover:bg-green-600'
+            className='w-6 h-6 md:w-10 md:h-10 bg-green-500 text-white rounded-full hover:bg-green-600'
           >
             +
           </button>
