@@ -1,8 +1,8 @@
 'use client'
-import './globals.css'
-import Header from './components/Header'
-import Providers from './components/Providers'
-import ProtectedLayout from './components/ProtectedLayout'
+import '../globals.css'
+import Header from '../components/Header'
+import Providers from '../components/Providers'
+import ProtectedLayout from '../components/ProtectedLayout'
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (

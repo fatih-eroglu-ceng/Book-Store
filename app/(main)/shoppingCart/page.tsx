@@ -1,10 +1,10 @@
 'use client'
 
 import { useSelector } from 'react-redux'
-import { RootState } from '../redux/store'
-import CartItemComponent from '../components/CartItemComponent'
+import { RootState } from '../../redux/store'
+import CartItemComponent from '../../components/CartItemComponent'
 import { useRouter } from 'next/navigation'
-import { handleBackClick } from '../utils/navigation'
+import { handleBackClick } from '../../utils/navigation'
 const CartPage = () => {
   const router = useRouter()
   const cartItems = useSelector((state: RootState) => state.cart.items)

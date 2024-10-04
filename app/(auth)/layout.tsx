@@ -1,3 +1,6 @@
+'use client'
+import '../globals.css'
+import { SessionProvider } from 'next-auth/react'
 export default function LoginLayout({ children }: { children: React.ReactNode }) {
     
     return (
@@ -6,9 +9,11 @@ export default function LoginLayout({ children }: { children: React.ReactNode })
           <title>Login - Book Store</title>
         </head>
         <body>
+          <SessionProvider>
           <main>
             {children}
           </main>
+         </SessionProvider>
         </body>
       </html>
     );

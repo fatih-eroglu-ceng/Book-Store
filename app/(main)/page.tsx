@@ -1,6 +1,6 @@
-import Carousel from './components/Carousel';
+import Carousel from '../components/Carousel';
 import React from 'react';
-import Categories from './components/HomeCategories';
+import Categories from '../components/HomeCategories';
 
 export default function Home() {
   return (
@@ -21,4 +21,3 @@ export default function Home() {
     </div>
   );
 }
-//TODO: Src klasörü koy /app te sadece page olanlar (routing) gerisi /src içinde olabilir

@@ -1,7 +1,7 @@
 'use client';
 
 import { useDispatch } from 'react-redux';
-import useCoverImage from '../hooks/useCoverImage';
+import useCoverImage from '../hooks/useApi';
 import { CartItem } from '../types/cart';
 import { addItemToCart, removeItemFromCart } from '../redux/cartSlice';
 

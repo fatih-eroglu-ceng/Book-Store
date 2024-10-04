@@ -21,8 +21,9 @@ export default function ProtectedLayout({ children }: { children: React.ReactNod
     }
   }, [status, router]);
 
-  if ((status === 'unauthenticated') && pathname!=='/login') {
+  if ((status === 'unauthenticated' && pathname !== '/login')) {
     return <div>Loading...</div>;
   }
   return <>{children}</>;
 }
+//TODO: Anlık diğer sayfanın görünmesi sorunu (hem main hem de login tarafında mevcut)

@@ -1,9 +1,9 @@
 'use client';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import useFetch from '../../hooks/useFetch';
-import { handleBackClick } from '../../utils/navigation';
-import { Product } from '../../types/product';
+import useFetch from '../../../hooks/useFetch';
+import { handleBackClick } from '../../../utils/navigation';
+import { Product } from '../../../types/product';
 
 const CategoryPage = ({ params }: { params: { id: number } }) => {
   const { id } = params;

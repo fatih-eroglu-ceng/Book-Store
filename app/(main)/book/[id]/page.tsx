@@ -1,22 +1,22 @@
 'use client'
 import { useRouter } from 'next/navigation'
 import { useDispatch, useSelector } from 'react-redux'
-import useFetch from '../../hooks/useFetch'
-import useCoverImage from '../../hooks/useCoverImage'
-import { handleBackClick } from '../../utils/navigation'
-import { addFavorite, removeFavorite } from '../../redux/favoritesSlice'
-import { addItemToCart } from '../../redux/cartSlice'
-import { Product } from '../../types/product'
-import { RootState } from '../../redux/store'
-import { useSearchParams } from 'next/navigation';
-//TODO: Params kontrol et
+import useFetch from '../../../hooks/useFetch'
+import useApi from '../../../hooks/useApi'
+import { handleBackClick } from '../../../utils/navigation'
+import { addFavorite, removeFavorite } from '../../../redux/favoritesSlice'
+import { addItemToCart } from '../../../redux/cartSlice'
+import { Product } from '../../../types/product'
+import { RootState } from '../../../redux/store'
+import { useSearchParams } from 'next/navigation'
+
 const BookDetailsPage = ({ params }: { params: { id: string } }) => {
   const { id } = params
   const dispatch = useDispatch()
   const router = useRouter()
   const favoriteBooks = useSelector((state: RootState) => state.favorites.favorites)
   const isBookFavorite = favoriteBooks.some(favorite => favorite.id === +id)
-  const searchParams = useSearchParams();
+  const searchParams = useSearchParams()
 
   const coverName = searchParams.get('cover')
 
@@ -27,12 +27,13 @@ const BookDetailsPage = ({ params }: { params: { id: string } }) => {
   } = useFetch<{ product_by_pk: Product }>(`${process.env.NEXT_PUBLIC_API_BASE_URL}/product/${id}`)
 
   const {
-    coverImageUrl,
+    data: coverImageUrl,
     error: coverError,
     isLoading: isCoverLoading
-  } = useCoverImage(coverName)
-
-  console.log(productData?.product_by_pk.cover)
+  } = useApi(coverName ? `${process.env.NEXT_PUBLIC_API_BASE_URL}/cover_image` : null, {
+    method: 'POST',
+    body: { fileName: coverName }
+  })
 
   if (isLoading) return <div>Loading book details...</div>
   if (productError) return <div>Error loading book details</div>
@@ -80,7 +81,7 @@ const BookDetailsPage = ({ params }: { params: { id: string } }) => {
           ) : coverError ? (
             <div>Error loading cover image</div>
           ) : coverImageUrl ? (
-            <img src={coverImageUrl} alt={book?.name} className='rounded-lg shadow-lg object-cover w-full' />
+            <img src={coverImageUrl.action_product_image?.url ?? 'images/cover.png'} alt={book?.name} className='rounded-lg shadow-lg object-cover w-full' />
           ) : (
             <div>Cover image not available</div>
           )}
